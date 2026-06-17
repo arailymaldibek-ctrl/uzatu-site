@@ -92,14 +92,14 @@
     }
     .mb-play:hover{background:rgba(255,255,255,.25)}
 
-    /* YouTube — visible small player above music bar. iOS REQUIRES it to be visible */
+    /* YouTube: 1x1px clip, iframe full-size inside — iOS sees renderable element */
     #yt-wrap{
       position:fixed;bottom:54px;right:0;
-      width:80px;height:45px;
+      width:1px;height:1px;overflow:hidden;
       pointer-events:none;z-index:999;
-      opacity:0.01;
+      clip:rect(0,1px,1px,0);
     }
-    #yt-wrap iframe{width:80px;height:45px;border:0}
+    #yt-wrap iframe{width:320px;height:180px;border:0;transform:translate(-319px,-179px)}
 
     /* ══ HERO ══ */
     .hero{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end}
