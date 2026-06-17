@@ -355,22 +355,6 @@
   </div>
 </section>
 
-<!-- ══ MUSIC ══ -->
-<section class="music-sec">
-  <div class="music-inner">
-    <div class="sec-head">
-      <p class="sec-eyebrow r" style="color:rgba(201,168,76,.6)">🎵 Той музыкасы</p>
-      <h2 class="sec-title r" style="color:var(--gold)">Ұзату кешінің үні</h2>
-    </div>
-    <div class="playlist r">
-      <div class="track"><span class="trk-n">01</span><span class="trk-i">🥁</span><div class="trk-info"><div class="trk-name">Жар-Жар</div><div class="trk-sub">Дәстүрлі ұзату жыры</div></div><span class="trk-tag">Дәстүр</span><div class="trk-bars"><span></span><span></span><span></span><span></span></div></div>
-      <div class="track"><span class="trk-n">02</span><span class="trk-i">🎤</span><div class="trk-info"><div class="trk-name">Думан Есқали</div><div class="trk-sub">Қазақтың жұлдызы</div></div><span class="trk-tag">Live</span></div>
-      <div class="track"><span class="trk-n">03</span><span class="trk-i">🎧</span><div class="trk-info"><div class="trk-name">Иманбек Зейкенов</div><div class="trk-sub">World-class DJ</div></div><span class="trk-tag">Хит</span></div>
-      <div class="track"><span class="trk-n">04</span><span class="trk-i">🎹</span><div class="trk-info"><div class="trk-name">Торегали Төреәлі</div><div class="trk-sub">Жүректің жылуы</div></div><span class="trk-tag">Баллада</span></div>
-      <div class="track"><span class="trk-n">05</span><span class="trk-i">🎶</span><div class="trk-info"><div class="trk-name">Скай</div><div class="trk-sub">Той атмосферасы</div></div><span class="trk-tag">Би</span></div>
-    </div>
-  </div>
-</section>
 
 <!-- ══ RSVP ══ -->
 <section class="rsvp-sec" id="rsvp">
@@ -425,7 +409,7 @@
   <button class="mb-play" id="mb-play" onclick="togglePlay()">▶</button>
 </div>
 
-<div id="yt-hidden"></div>
+<div id="yt-hidden" style="position:fixed;bottom:56px;right:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;"></div>
 
 <script>
 // ── SPLASH ──
@@ -445,19 +429,25 @@ var musicBar=document.getElementById('music-bar');
 window.onYouTubeIframeAPIReady=function(){
   ytReady=true;
   ytPlayer=new YT.Player('yt-hidden',{
+    width:'1', height:'1',
     videoId:'Zq5Ft8CiiJQ',
-    playerVars:{autoplay:0,loop:1,playlist:'Zq5Ft8CiiJQ',controls:0},
+    playerVars:{autoplay:0,loop:1,playlist:'Zq5Ft8CiiJQ',controls:0,playsinline:1},
     events:{
       onReady:function(e){
-        e.target.setVolume(45);
+        e.target.setVolume(50);
         if(ytPlaying){ e.target.playVideo(); }
       },
       onStateChange:function(e){
         if(e.data===YT.PlayerState.PLAYING){
-          mbPlay.textContent='⏸'; mbVinyl.classList.add('spin'); mbBars.classList.add('go');
-          musicBar.classList.add('show'); ytPlaying=true;
+          mbPlay.textContent='⏸';
+          mbVinyl.classList.add('spin');
+          mbBars.classList.add('go');
+          musicBar.classList.add('show');
+          ytPlaying=true;
         } else if(e.data===YT.PlayerState.PAUSED||e.data===YT.PlayerState.ENDED){
-          mbPlay.textContent='▶'; mbVinyl.classList.remove('spin'); mbBars.classList.remove('go');
+          mbPlay.textContent='▶';
+          mbVinyl.classList.remove('spin');
+          mbBars.classList.remove('go');
           ytPlaying=false;
         }
       }
