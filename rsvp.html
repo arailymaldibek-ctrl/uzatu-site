@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RSVP — Узату Айгерім</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ Узату</a>
+    <div class="nav-links">
+      <a href="invitation.html" data-i18n="nav_invitation">Приглашение</a>
+      <a href="details.html"    data-i18n="nav_details">Детали</a>
+      <a href="rsvp.html" class="active" data-i18n="nav_rsvp">Подтвердить</a>
+    </div>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">KZ</button>
+  </div>
+</nav>
+
+<section class="rsvp-hero">
+  <div class="hero-bg"></div>
+  <div class="orn orn-tl"></div>
+  <div class="orn orn-tr"></div>
+  <h1 class="reveal"><em data-i18n="rsvp_title">Подтвердите участие</em></h1>
+</section>
+
+<section class="rsvp-section">
+  <div class="container-sm">
+    <p class="section-eyebrow reveal">✦</p>
+    <p class="section-subtitle reveal" data-i18n="rsvp_sub">Просим ответить до 1 сентября 2026</p>
+
+    <!-- SUCCESS -->
+    <div class="rsvp-success" id="rsvp-success">
+      <div class="success-icon">✦</div>
+      <h3 id="success-title"></h3>
+      <p id="success-msg"></p>
+    </div>
+
+    <!-- FORM -->
+    <div class="rsvp-form-card reveal" id="rsvp-card">
+      <form id="rsvp-form" novalidate onsubmit="submitRSVP(event)">
+
+        <div class="form-row">
+          <div class="form-group" id="fg-name">
+            <label class="form-label" data-i18n="rsvp_name">Имя и фамилия</label>
+            <input type="text" id="f-name" data-i18n-ph="rsvp_name_ph" placeholder="Введите ваше имя" autocomplete="name"/>
+            <span class="field-error" data-i18n="err_name">Пожалуйста, введите имя</span>
+          </div>
+          <div class="form-group" id="fg-phone">
+            <label class="form-label" data-i18n="rsvp_phone">Номер телефона</label>
+            <input type="tel" id="f-phone" data-i18n-ph="rsvp_phone_ph" placeholder="+7 (700) 000-00-00" autocomplete="tel"/>
+            <span class="field-error" data-i18n="err_phone">Введите корректный номер</span>
+          </div>
+        </div>
+
+        <div class="form-group" id="fg-attend">
+          <label class="form-label" data-i18n="rsvp_attend">Вы придёте?</label>
+          <div class="radio-row">
+            <label class="radio-opt" id="opt-yes">
+              <input type="radio" name="attend" value="yes"/>
+              <span data-i18n="rsvp_yes">Да, приду ✓</span>
+            </label>
+            <label class="radio-opt" id="opt-no">
+              <input type="radio" name="attend" value="no"/>
+              <span data-i18n="rsvp_no">К сожалению, не смогу</span>
+            </label>
+          </div>
+          <span class="field-error" data-i18n="err_attend">Выберите вариант ответа</span>
+        </div>
+
+        <div class="form-group" id="fg-guests" style="display:none">
+          <label class="form-label" data-i18n="rsvp_guests">Количество гостей</label>
+          <select id="f-guests">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          <span class="field-error" data-i18n="err_guests">Укажите количество</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="rsvp_comment">Пожелание / Комментарий</label>
+          <textarea id="f-note" data-i18n-ph="rsvp_comment_ph" placeholder="Напишите пожелание невесте..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn" data-i18n="rsvp_submit">Отправить</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-orn">⬥ ✦ ⬥</div>
+  <p class="footer-name">Арайлым</p>
+  <p class="footer-copy">Узату · 26.09.2026</p>
+  <nav class="footer-nav">
+    <a href="invitation.html" data-i18n="nav_invitation">Приглашение</a>
+    <a href="details.html"    data-i18n="nav_details">Детали</a>
+    <a href="rsvp.html"       data-i18n="nav_rsvp">Подтвердить</a>
+  </nav>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

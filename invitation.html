@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Приглашение — Узату Арайлым</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ Узату</a>
+    <div class="nav-links">
+      <a href="invitation.html" class="active" data-i18n="nav_invitation">Приглашение</a>
+      <a href="details.html"    data-i18n="nav_details">Детали</a>
+      <a href="rsvp.html"       data-i18n="nav_rsvp">Подтвердить</a>
+    </div>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">KZ</button>
+  </div>
+</nav>
+
+<section class="inv-hero">
+  <div class="hero-bg"></div>
+  <div class="orn orn-tl"></div>
+  <div class="orn orn-tr"></div>
+  <h1 class="reveal"><em data-i18n="inv_title">Приглашение</em></h1>
+</section>
+
+<div class="invite-wrap">
+  <div class="invite-card reveal">
+    <div class="invite-inner">
+      <p class="invite-greeting" data-i18n="inv_greeting">Дорогие гости,</p>
+      <p class="invite-body" data-i18n="inv_body">С радостью в сердце приглашаем вас разделить с нами особый вечер — проводы нашей любимой дочери Айгерім в счастливую семейную жизнь. Пусть этот день станет незабываемым праздником любви и тепла.</p>
+      <div class="invite-meta">
+        <strong data-i18n="inv_date">14 сентября 2026 года</strong>
+        <span data-i18n="inv_time">Начало в 18:00</span>
+        <span data-i18n="inv_place">Банкетный зал «Астана», г. Алматы</span>
+      </div>
+      <p class="invite-family" data-i18n="inv_family">— Семья Алдибек</p>
+      <div class="invite-cta">
+        <a href="rsvp.html" class="btn-gold" data-i18n="inv_rsvp_btn">Подтвердить участие</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-orn">⬥ ✦ ⬥</div>
+  <p class="footer-name">Арайлым</p>
+  <p class="footer-copy">Узату · 26.09.2026</p>
+  <nav class="footer-nav">
+    <a href="invitation.html" data-i18n="nav_invitation">Приглашение</a>
+    <a href="details.html"    data-i18n="nav_details">Детали</a>
+    <a href="rsvp.html"       data-i18n="nav_rsvp">Подтвердить</a>
+  </nav>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

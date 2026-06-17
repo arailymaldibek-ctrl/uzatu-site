@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Детали — Узату Арайлым</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── DETAILS EXTENDED ── */
+    .det-hero { min-height: 38vh; display:flex; align-items:center; justify-content:center; text-align:center; position:relative; background: linear-gradient(150deg,#1c0a14 0%,#3D0A1C 60%,#5B1A32 100%); }
+    .det-hero h1 { font-size: clamp(2rem,5vw,3.5rem); color:#fff; position:relative; z-index:1; }
+
+    /* DATE SECTION */
+    .date-section { background: var(--cream); padding: 80px 0 60px; }
+    .date-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:800px; margin:0 auto; }
+    @media(max-width:600px){ .date-grid{ grid-template-columns:1fr; } }
+
+    .calendar-card {
+      background:#fff;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow: 0 8px 40px rgba(139,26,74,.12);
+    }
+    .cal-header {
+      background: linear-gradient(135deg,var(--bord),#7B1540);
+      color:#fff;
+      text-align:center;
+      padding:18px 24px 14px;
+    }
+    .cal-month { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+    .cal-year  { font-size:.85rem; opacity:.75; margin-top:2px; }
+    .cal-body  { padding:20px; }
+    .cal-days-header { display:grid; grid-template-columns:repeat(7,1fr); text-align:center; font-size:.7rem; font-weight:600; color:#aaa; text-transform:uppercase; margin-bottom:8px; }
+    .cal-days  { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; text-align:center; }
+    .cal-day   { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:.85rem; border-radius:50%; color:#555; }
+    .cal-day.empty { color:transparent; }
+    .cal-day.today {
+      background: linear-gradient(135deg,var(--bord),#7B1540);
+      color:#fff;
+      font-weight:700;
+      font-size:1rem;
+      box-shadow:0 4px 16px rgba(139,26,74,.4);
+      transform:scale(1.15);
+    }
+    .cal-day.weekend { color: var(--bord); }
+    .cal-day.today.weekend { color:#fff; }
+
+    .time-card {
+      background:#fff;
+      border-radius:24px;
+      padding:36px 28px;
+      box-shadow:0 8px 40px rgba(139,26,74,.12);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      gap:12px;
+    }
+    .time-icon { font-size:2.8rem; }
+    .time-label { font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; color:#aaa; font-weight:600; }
+    .time-big { font-family:'Playfair Display',serif; font-size:3rem; color:var(--bord); font-weight:700; line-height:1; }
+    .time-sub { font-size:.9rem; color:#888; }
+    .time-divider { width:40px; height:2px; background:var(--gold); border-radius:2px; }
+    .day-badge { background:linear-gradient(135deg,var(--gold),#B8941E); color:#fff; border-radius:20px; padding:6px 18px; font-size:.8rem; font-weight:600; letter-spacing:.08em; }
+
+    /* VENUE SECTION */
+    .venue-section { padding:80px 0; background:#fff; }
+    .venue-inner { max-width:900px; margin:0 auto; padding:0 24px; }
+    .venue-photo-wrap {
+      border-radius:24px;
+      overflow:hidden;
+      position:relative;
+      height:380px;
+      margin-bottom:40px;
+      box-shadow:0 16px 60px rgba(0,0,0,.18);
+    }
+    .venue-photo-wrap img { width:100%; height:100%; object-fit:cover; }
+    .venue-photo-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(28,10,20,.75) 0%,transparent 55%);
+      display:flex; align-items:flex-end; padding:32px;
+    }
+    .venue-photo-text { color:#fff; }
+    .venue-photo-text h2 { font-family:'Playfair Display',serif; font-size:1.8rem; margin:0 0 4px; }
+    .venue-photo-text p  { margin:0; opacity:.8; font-size:.95rem; }
+
+    .venue-info-row { display:flex; gap:20px; flex-wrap:wrap; }
+    .venue-info-chip {
+      display:flex; align-items:center; gap:10px;
+      background:#faf6f0; border-radius:14px; padding:14px 20px;
+      flex:1; min-width:180px;
+    }
+    .vic-icon { font-size:1.5rem; }
+    .vic-label { font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:#aaa; font-weight:600; }
+    .vic-val   { font-size:.95rem; color:#333; font-weight:500; margin-top:2px; }
+
+    /* MAP SECTION */
+    .map2-section { padding:80px 0; background:var(--cream); }
+    .map2-inner { max-width:900px; margin:0 auto; padding:0 24px; }
+    .map2-head  { text-align:center; margin-bottom:36px; }
+    .map2-head h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--bord); margin:0 0 8px; }
+    .map2-head p  { color:#888; }
+    .map2-frame {
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 12px 48px rgba(0,0,0,.14);
+      height:420px;
+    }
+    .map2-frame iframe { width:100%; height:100%; border:0; display:block; }
+    .map2-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:20px;
+      background:linear-gradient(135deg,var(--bord),#7B1540);
+      color:#fff; text-decoration:none;
+      border-radius:50px; padding:14px 28px;
+      font-size:.9rem; font-weight:600;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .map2-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(139,26,74,.35); }
+
+    /* MUSIC SECTION */
+    .music-section {
+      padding:90px 0;
+      background: linear-gradient(160deg,#1c0a14 0%,#2E0A1A 45%,#3D1428 100%);
+      position:relative; overflow:hidden;
+    }
+    .music-notes {
+      position:absolute; inset:0; pointer-events:none; overflow:hidden;
+    }
+    .music-notes span {
+      position:absolute; font-size:1.4rem; opacity:.07; animation:floatNote 8s ease-in-out infinite;
+      color:#C9A84C;
+    }
+    .music-notes span:nth-child(1)  { left:5%;  top:20%; animation-delay:0s;    font-size:2rem; }
+    .music-notes span:nth-child(2)  { left:15%; top:70%; animation-delay:1.5s;  font-size:1rem; }
+    .music-notes span:nth-child(3)  { left:30%; top:10%; animation-delay:3s;    font-size:1.8rem; }
+    .music-notes span:nth-child(4)  { left:55%; top:80%; animation-delay:.8s;   font-size:1.2rem; }
+    .music-notes span:nth-child(5)  { left:70%; top:15%; animation-delay:2.2s;  font-size:2.2rem; }
+    .music-notes span:nth-child(6)  { left:82%; top:60%; animation-delay:4s;    font-size:1rem; }
+    .music-notes span:nth-child(7)  { left:92%; top:30%; animation-delay:1s;    font-size:1.6rem; }
+    .music-notes span:nth-child(8)  { left:45%; top:50%; animation-delay:5s;    font-size:1rem; }
+    @keyframes floatNote {
+      0%,100% { transform:translateY(0) rotate(-5deg); opacity:.06; }
+      50%      { transform:translateY(-22px) rotate(5deg); opacity:.13; }
+    }
+
+    .music-inner { max-width:800px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+    .music-header { text-align:center; margin-bottom:52px; }
+    .music-eyebrow { font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:12px; }
+    .music-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.8rem,4vw,2.8rem);
+      color:#fff; margin:0 0 12px; font-style:italic;
+    }
+    .music-sub { color:rgba(255,255,255,.5); font-size:.95rem; margin:0; }
+
+    /* Vinyl record */
+    .vinyl-wrap { display:flex; justify-content:center; margin-bottom:52px; }
+    .vinyl {
+      width:180px; height:180px; border-radius:50%;
+      background: radial-gradient(circle at center,
+        #1a1a1a 0%,#1a1a1a 18%,
+        #2a2a2a 18%,#2a2a2a 20%,
+        #1c0a14 20%,#1c0a14 30%,
+        #2a0e1e 30%,#2a0e1e 32%,
+        #1c0a14 32%,#1c0a14 42%,
+        #2a0e1e 42%,#2a0e1e 44%,
+        #1c0a14 44%,#1c0a14 50%
+      );
+      box-shadow: 0 0 0 2px #3d1428, 0 0 0 4px #2a0e1e, 0 12px 48px rgba(0,0,0,.6);
+      animation: spinVinyl 6s linear infinite;
+      position:relative;
+      flex-shrink:0;
+    }
+    .vinyl::after {
+      content:'';
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      width:30px; height:30px;
+      border-radius:50%;
+      background:radial-gradient(circle,#C9A84C,#B8941E);
+      box-shadow:0 0 12px rgba(201,168,76,.5);
+    }
+    @keyframes spinVinyl { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+    /* Playlist */
+    .playlist { display:flex; flex-direction:column; gap:12px; }
+    .track {
+      display:flex; align-items:center; gap:16px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(201,168,76,.15);
+      border-radius:16px;
+      padding:16px 20px;
+      transition:background .25s, border-color .25s, transform .25s;
+      cursor:default;
+    }
+    .track:hover {
+      background:rgba(201,168,76,.12);
+      border-color:rgba(201,168,76,.4);
+      transform:translateX(6px);
+    }
+    .track-num {
+      font-family:'Playfair Display',serif;
+      font-size:1.1rem; color:var(--gold); opacity:.6;
+      width:22px; text-align:center; flex-shrink:0;
+    }
+    .track-icon { font-size:1.6rem; flex-shrink:0; }
+    .track-info { flex:1; min-width:0; }
+    .track-name { color:#fff; font-weight:600; font-size:.95rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .track-artist { color:rgba(255,255,255,.45); font-size:.8rem; margin-top:2px; }
+    .track-badge {
+      background:rgba(201,168,76,.18);
+      color:var(--gold);
+      border-radius:20px; padding:4px 12px;
+      font-size:.7rem; font-weight:600; letter-spacing:.05em;
+      white-space:nowrap; flex-shrink:0;
+    }
+    .track-bars {
+      display:flex; align-items:flex-end; gap:3px; height:20px; flex-shrink:0;
+    }
+    .track-bars span {
+      display:block; width:3px; background:var(--gold); border-radius:2px;
+      animation:barPulse 1s ease-in-out infinite alternate;
+    }
+    .track-bars span:nth-child(1){ height:8px;  animation-delay:0s; }
+    .track-bars span:nth-child(2){ height:16px; animation-delay:.15s; }
+    .track-bars span:nth-child(3){ height:11px; animation-delay:.3s; }
+    .track-bars span:nth-child(4){ height:18px; animation-delay:.1s; }
+    .track-bars span:nth-child(5){ height:7px;  animation-delay:.25s; }
+    @keyframes barPulse {
+      from { opacity:.4; transform:scaleY(.6); }
+      to   { opacity:1;  transform:scaleY(1); }
+    }
+    .track-play { color:rgba(255,255,255,.2); font-size:1.2rem; flex-shrink:0; }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">✦ Узату</a>
+    <div class="nav-links">
+      <a href="invitation.html" data-i18n="nav_invitation">Приглашение</a>
+      <a href="details.html" class="active" data-i18n="nav_details">Детали</a>
+      <a href="rsvp.html"    data-i18n="nav_rsvp">Подтвердить</a>
+    </div>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">KZ</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="det-hero">
+  <div class="orn orn-tl"></div>
+  <div class="orn orn-tr"></div>
+  <h1 class="reveal"><em data-i18n="det_title">Детали торжества</em></h1>
+</section>
+
+<!-- DATE & TIME -->
+<section class="date-section">
+  <div class="container">
+    <p class="section-eyebrow reveal">✦</p>
+    <h2 class="section-title reveal" data-i18n="det_date_label">Дата</h2>
+    <div class="date-grid reveal">
+
+      <!-- Calendar -->
+      <div class="calendar-card">
+        <div class="cal-header">
+          <div class="cal-month" id="cal-month">Сентябрь 2026</div>
+          <div class="cal-year">2026</div>
+        </div>
+        <div class="cal-body">
+          <div class="cal-days-header">
+            <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+          </div>
+          <div class="cal-days" id="cal-days"></div>
+        </div>
+      </div>
+
+      <!-- Time -->
+      <div class="time-card">
+        <div class="time-icon">🕖</div>
+        <div class="time-label" data-i18n="det_time_label">Время</div>
+        <div class="time-big">18:00</div>
+        <div class="time-divider"></div>
+        <div class="time-sub" data-i18n="det_doors">Двери открываются в 17:30</div>
+        <div class="day-badge" data-i18n="det_day">Суббота</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VENUE -->
+<section class="venue-section">
+  <div class="venue-inner">
+    <p class="section-eyebrow reveal" style="text-align:center">✦</p>
+    <h2 class="section-title reveal" style="text-align:center" data-i18n="det_venue_label">Место проведения</h2>
+
+    <div class="venue-photo-wrap reveal">
+      <img
+        src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=80"
+        alt="Банкетный зал"
+        onerror="this.style.display='none'"
+      />
+      <div class="venue-photo-overlay">
+        <div class="venue-photo-text">
+          <h2 data-i18n="det_venue_val">Банкетный зал «Астана»</h2>
+          <p data-i18n="det_addr">ул. Кунаева 12, Алматы</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="venue-info-row reveal">
+      <div class="venue-info-chip">
+        <span class="vic-icon">📍</span>
+        <div>
+          <div class="vic-label" data-i18n="det_venue_label">Место</div>
+          <div class="vic-val" data-i18n="det_venue_val">Банкетный зал «Астана»</div>
+        </div>
+      </div>
+      <div class="venue-info-chip">
+        <span class="vic-icon">🗺</span>
+        <div>
+          <div class="vic-label" data-i18n="det_addr_label">Адрес</div>
+          <div class="vic-val" data-i18n="det_addr">ул. Кунаева 12, Алматы</div>
+        </div>
+      </div>
+      <div class="venue-info-chip">
+        <span class="vic-icon">📞</span>
+        <div>
+          <div class="vic-label" data-i18n="det_phone_label">Контакт</div>
+          <div class="vic-val" data-i18n="det_phone_val">+7 707 123 45 67</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2GIS MAP -->
+<section class="map2-section">
+  <div class="map2-inner">
+    <div class="map2-head reveal">
+      <h2>📍 <span data-i18n="det_venue_val">Банкетный зал «Астана»</span></h2>
+      <p data-i18n="det_addr">ул. Кунаева 12, Алматы</p>
+    </div>
+    <div class="map2-frame reveal">
+      <iframe
+        src="https://widgets.2gis.com/widget?type=firmsonmap&options=%7B%22pos%22%3A%7B%22lon%22%3A76.9286%2C%22lat%22%3A43.2565%2C%22zoom%22%3A16%7D%2C%22opt%22%3A%7B%22city%22%3A%22almaty%22%7D%7D"
+        allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <a class="map2-btn reveal"
+         href="https://2gis.kz/almaty?m=76.9286%2C43.2565%2F16"
+         target="_blank" rel="noopener">
+        🗺 Открыть в 2ГИС
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="music-section">
+  <!-- Floating notes -->
+  <div class="music-notes">
+    <span>♪</span><span>♫</span><span>♩</span><span>♬</span>
+    <span>♪</span><span>♫</span><span>♩</span><span>♬</span>
+  </div>
+
+  <div class="music-inner">
+    <div class="music-header reveal">
+      <p class="music-eyebrow">✦ Той музыкасы ✦</p>
+      <h2 class="music-title">Ұзату кешінің үні</h2>
+      <p class="music-sub">Жан-жүрекке жылы тиетін қазақтың классикасы мен заманауи хиттері</p>
+    </div>
+
+    <div class="vinyl-wrap reveal">
+      <div class="vinyl"></div>
+    </div>
+
+    <div class="playlist reveal">
+
+      <div class="track">
+        <span class="track-num">01</span>
+        <span class="track-icon">🥁</span>
+        <div class="track-info">
+          <div class="track-name">Жар-Жар</div>
+          <div class="track-artist">Дәстүрлі ұзату жыры</div>
+        </div>
+        <span class="track-badge">Дәстүр</span>
+        <div class="track-bars"><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="track">
+        <span class="track-num">02</span>
+        <span class="track-icon">🎤</span>
+        <div class="track-info">
+          <div class="track-name">Сыңсу</div>
+          <div class="track-artist">Қыз ұзату дәстүрі</div>
+        </div>
+        <span class="track-badge">Классика</span>
+        <div class="track-play">▷</div>
+      </div>
+
+      <div class="track">
+        <span class="track-num">03</span>
+        <span class="track-icon">🎸</span>
+        <div class="track-info">
+          <div class="track-name">Думан Есқали</div>
+          <div class="track-artist">Заманауи қазақ хиттері</div>
+        </div>
+        <span class="track-badge">Live</span>
+        <div class="track-play">▷</div>
+      </div>
+
+      <div class="track">
+        <span class="track-num">04</span>
+        <span class="track-icon">🎧</span>
+        <div class="track-info">
+          <div class="track-name">Иманбек Зейкенов</div>
+          <div class="track-artist">World-класс диджей</div>
+        </div>
+        <span class="track-badge">Хит</span>
+        <div class="track-play">▷</div>
+      </div>
+
+      <div class="track">
+        <span class="track-num">05</span>
+        <span class="track-icon">🎹</span>
+        <div class="track-info">
+          <div class="track-name">Торегали Төреәлі</div>
+          <div class="track-artist">Жүрекке жылы ән</div>
+        </div>
+        <span class="track-badge">Балладасы</span>
+        <div class="track-play">▷</div>
+      </div>
+
+      <div class="track">
+        <span class="track-num">06</span>
+        <span class="track-icon">🎶</span>
+        <div class="track-info">
+          <div class="track-name">Скай & Биғали Ерекше</div>
+          <div class="track-artist">Той атмосферасы</div>
+        </div>
+        <span class="track-badge">Би</span>
+        <div class="track-play">▷</div>
+      </div>
+
+      <div class="track">
+        <span class="track-num">07</span>
+        <span class="track-icon">🪘</span>
+        <div class="track-info">
+          <div class="track-name">Мейрамбек Бесбаев</div>
+          <div class="track-artist">Қазақстан жұлдызы</div>
+        </div>
+        <span class="track-badge">Live</span>
+        <div class="track-play">▷</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-orn">⬥ ✦ ⬥</div>
+  <p class="footer-name">Арайлым</p>
+  <p class="footer-copy">Узату · 26.09.2026</p>
+  <nav class="footer-nav">
+    <a href="invitation.html" data-i18n="nav_invitation">Приглашение</a>
+    <a href="details.html"    data-i18n="nav_details">Детали</a>
+    <a href="rsvp.html"       data-i18n="nav_rsvp">Подтвердить</a>
+  </nav>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Calendar: September 2026
+  // Sep 1 2026 = Tuesday (day index 1, Mon=0)
+  const lang = getLang();
+  const monthNames = {
+    ru: 'Сентябрь 2026',
+    kz: 'Қыркүйек 2026'
+  };
+  const dayNames = {
+    ru: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+    kz: ['Дс','Сс','Ср','Бс','Жм','Сн','Жк']
+  };
+
+  document.getElementById('cal-month').textContent = monthNames[lang] || monthNames.ru;
+
+  // Update day headers
+  const hdr = document.querySelector('.cal-days-header');
+  if (hdr) {
+    const names = dayNames[lang] || dayNames.ru;
+    hdr.innerHTML = names.map(d => `<span>${d}</span>`).join('');
+  }
+
+  // Sep 2026: starts on Tuesday (Mon=0, so offset=1), 30 days
+  const daysContainer = document.getElementById('cal-days');
+  const startOffset = 1; // Tuesday
+  const totalDays  = 30;
+  const highlight  = 26;
+  let html = '';
+
+  for (let i = 0; i < startOffset; i++) {
+    html += `<div class="cal-day empty"></div>`;
+  }
+  for (let d = 1; d <= totalDays; d++) {
+    const col = (startOffset + d - 1) % 7; // 0=Mon..5=Sat,6=Sun
+    const isWeekend = col === 5 || col === 6;
+    const classes = ['cal-day', isWeekend ? 'weekend' : '', d === highlight ? 'today' : ''].filter(Boolean).join(' ');
+    html += `<div class="${classes}">${d}</div>`;
+  }
+  daysContainer.innerHTML = html;
+});
+</script>
+</body>
+</html>
