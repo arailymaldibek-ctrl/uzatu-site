@@ -92,13 +92,14 @@
     }
     .mb-play:hover{background:rgba(255,255,255,.25)}
 
-    /* YouTube — NOT hidden, just tiny and clipped. iOS needs it renderable */
+    /* YouTube — visible small player above music bar. iOS REQUIRES it to be visible */
     #yt-wrap{
       position:fixed;bottom:54px;right:0;
-      width:2px;height:2px;overflow:hidden;
+      width:80px;height:45px;
       pointer-events:none;z-index:999;
+      opacity:0.01;
     }
-    #yt-wrap iframe{width:200px;height:120px;border:0}
+    #yt-wrap iframe{width:80px;height:45px;border:0}
 
     /* ══ HERO ══ */
     .hero{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:flex-end}
@@ -295,8 +296,7 @@
     <div class="det-card"><div class="det-icon">📅</div><div class="det-lbl">Күні</div><div class="det-val">26 қыркүйек</div><div class="det-s">2026 · Сенбі</div></div>
     <div class="det-card"><div class="det-icon">🕖</div><div class="det-lbl">Уақыты</div><div class="det-val">18:00</div><div class="det-s">Есік 17:30-дан</div></div>
     <div class="det-card"><div class="det-icon">📍</div><div class="det-lbl">Тойхана</div><div class="det-val">«Астана»</div><div class="det-s">Қонаев к-сі 12</div></div>
-    <div class="det-card"><div class="det-icon">🎵</div><div class="det-lbl">Музыка</div><div class="det-val">Тірі музыка</div><div class="det-s">Думан · Скай</div></div>
-    <div class="det-card"><div class="det-icon">📞</div><div class="det-lbl">Байланыс</div><div class="det-val" style="font-size:.92rem">+7 707 123 45 67</div><div class="det-s">Кез келген сұраққа</div></div>
+<div class="det-card"><div class="det-icon">📞</div><div class="det-lbl">Байланыс</div><div class="det-val" style="font-size:.92rem">+7 707 123 45 67</div><div class="det-s">Кез келген сұраққа</div></div>
   </div>
   <div class="cal-wrap r">
     <div class="cal-card">
